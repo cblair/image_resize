@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const router = useRouter();
-  const {image_url: imageUrl} = router.query || "";
-  const [image, setImage] = useState(null)
+  const imageUrl = `${router.query.image_url}`;
+  const [image, setImage] = useState("")
 
   useEffect(() => {
     if (imageUrl) {
@@ -28,9 +28,10 @@ export default function Home() {
 
   return (
     <main className="">
-      <p>Resize for "{imageUrl}", blur:</p>
+      <p>Resize for {imageUrl}, blur:</p>
       {image && 
-        <Image 
+        <Image
+          alt="blur"
           src={image}
           width={400}
           height={400}
@@ -38,8 +39,9 @@ export default function Home() {
       }
       <p>Full image using blur as placeholder:</p>
       {image && 
-        <Image 
-          src={imageUrl}
+        <Image
+          alt="original with blur"
+          src={imageUrl || ""}
           height={400}
           width={400}
           // fill={true}
@@ -49,7 +51,8 @@ export default function Home() {
       }
       <p>Full image:</p>
       {image && 
-        <Image 
+        <Image
+          alt="original"
           src={imageUrl}
           height={400}
           width={400}
